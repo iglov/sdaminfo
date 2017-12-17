@@ -1,6 +1,4 @@
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -29,15 +27,19 @@ public class TestBase {
 
     @Test
     public void preLoginTest() {
+        driver.get("https://10:10@hotelfm.ru/kazan/");
+        Assert.assertEquals("Квартиры посуточно в Казани без посредников. Снять квартиру на сутки недорого. Аренда на Sdaminfo.ru",driver.getTitle());
+    }
+
+    @Test
+    public void loginTest() {
         driver.get("https://hotelfm.ru/kazan/");
-        Alert alert = driver.switchTo().alert();
-        alert.sendKeys("10");
-        alert.sendKeys("10");
-        alert.accept();
+        driver.findElement(By.name("Войти")).click();
+
     }
 
     @After
-    public void driverQuit() {
+    public void closeConnect() throws Exception {
         driver.quit();
     }
 }
