@@ -1,3 +1,6 @@
+import com.tngtech.java.junit.dataprovider.DataProvider;
+import com.tngtech.java.junit.dataprovider.DataProviderRunner;
+import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -15,14 +18,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import javax.security.auth.login.Configuration;
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-@RunWith(JUnit4.class)
+//@RunWith(JUnit4.class)
+@RunWith(DataProviderRunner.class)
 public class TestBase {
     public WebDriver driver;
+
 
 
     @Before
@@ -58,7 +61,32 @@ public class TestBase {
         Assert.assertEquals("kazan",driver.getTitle());
     }
 
+    @DataProvider
+    public Object[][] provideData() {
+
+        return new Object[][] {
+                { "angeleclipse3@gmail.com", "angele_clip_3" },
+                { "Angel", "angele_clip_3" },
+                { "Angel", "testpass" },
+                { "", "testpass" },
+                { "angeleclipse3@gmail.com", "" },
+                { "angeleclipse3@gmail.com", "“[|]’~<!--@/*$%^&#*/()?>,.*/\\" },
+                { "angeleclipse3@gmail.com",
+                        "asafsfsddddddddddddddddddddkkkkkkkkkkkkkkkkkkkkkkkkkkkkkeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee3333333333333333344444444444" },
+                { "angeleclipse3@gmail.com",
+                        "testpassssssssssssssssssssssssSSSSSSSSSSSSSSSSSSSSSSSsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss" },
+                { "angeleclipse3@gmail.com", "s" },
+                { "angeleclipse3@gmail.com", "пароль" },
+                { "angeleclipse3@gmail.com", "null" },
+                { "angeleclipse3@gmail.com", "12312" },
+                { "testpass", "angeleclipse3@gmail.com" },
+                { "DROP TABLE user;", "testpass" } //Depends on DB
+
+        };
+    }
+
     @Test
+    @UseDataProvider("provideData")
     public void failLoginTest() {
 
 
