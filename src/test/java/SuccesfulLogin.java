@@ -20,6 +20,8 @@ import java.io.File;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+import static org.hamcrest.core.IsEqual.equalTo;
+
 @RunWith(JUnit4.class)
 public class SuccesfulLogin {
   public WebDriver driver;
@@ -36,6 +38,7 @@ public class SuccesfulLogin {
     Assert.assertEquals("Квартиры посуточно в Казани без посредников. Снять квартиру на сутки недорого. Аренда на Sdaminfo.ru", driver.getTitle());
   }
 
+  @Ignore
   @Test
   public void loginTest() {
     driver.get("https://10:10@hotelfm.ru/kazan/");
@@ -52,6 +55,13 @@ public class SuccesfulLogin {
     mypassword.sendKeys("12345");
     driver.findElement(By.id("log_button_top")).click();
     Assert.assertEquals("kazan",driver.getTitle());
+  }
+
+  @Test
+  public void appartmentCountInPage() {
+    driver.get("https://10:10@hotelfm.ru/kazan/");
+    List<WebElement> list = driver.findElements(By.cssSelector(".b-rflat"));
+    Assert.assertThat(50, equalTo(list.size()));
   }
 
   @After
