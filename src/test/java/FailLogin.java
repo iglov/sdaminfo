@@ -25,29 +25,31 @@ public class FailLogin {
     public WebDriver driver;
     private String login;
     private String password;
+    private String expected_errormessage;
+    private String warning_locator;
     private static int counter;
     private static int mainCounter;
     private static int beforeCounter;
 
-  public FailLogin(String login, String password) {
+  public FailLogin(String login, String password, String expected_errormessage, String warning_locator) {
     this.login = login;
     this.password = password;
-    System.out.println("constructor = " + mainCounter++);
+    this.expected_errormessage = expected_errormessage;
+    this.warning_locator = warning_locator;
   }
 
   @Before
   public void setUp() {
     System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
     driver = new ChromeDriver();
-    System.out.println("before = " + beforeCounter++);
   }
 
   @Parameterized.Parameters
   public static Collection<Object[]> data() {
     Object[][] data = new Object[][]{
-            {"9172664845", "00012345"},
-            {"user2", "12345"},
-            {"user3", "логин не может быть пустым"}
+            {"9172664845", "012345", "К сожалению, такой пользователь или пароль не найден.", "//*[@id=\"yw0\"]/div[2]/span"},
+            {"9172664845", "", "Необходимо заполнить поле «Пароль».", "//*[@id=\"yw0\"]/span"},
+            {"", "12345", "Необходимо заполнить поле «Телефон».", "//*[@id=\"yw0\"]/div[2]/span"}
     };
     return Arrays.asList(data);
   }
@@ -69,12 +71,8 @@ public class FailLogin {
     mypassword.sendKeys(password);
 
     driver.findElement(By.id("log_button_top")).click();
-    Assert.assertFalse("qwer",false);
-
-    System.out.println("Inside test! = "+counter++);
-    System.out.println("login = "+login);
-    System.out.println("password = "+password);
-
+    Assert.assertEquals("Проверка правильного логина и пустого пароля не прошла",expected_errormessage, driver
+            .findElement(By.xpath(warning_locator)).getText());
   }
 
   @After
