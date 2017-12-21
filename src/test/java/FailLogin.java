@@ -54,7 +54,7 @@ public class FailLogin {
     return Arrays.asList(data);
   }
 
-  @Test
+  @Test  //Fail login parametrized
   public void failLoginTest() {
     driver.get("https://10:10@hotelfm.ru/kazan/");
     driver.findElement(By.xpath("/html/body/div[1]/div/div[2]/a[1]")).click();
