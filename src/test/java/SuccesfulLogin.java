@@ -1,12 +1,10 @@
+import com.google.common.collect.Iterables;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Suite;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -69,21 +67,43 @@ public class SuccesfulLogin {
   @Test //Presence of picture
   public void presenceOfPicture() {
     driver.get("https://10:10@hotelfm.ru/kazan/");
-    List<WebElement> list = driver.findElements(By.className("b-rflat-image"));
-
+    //List<WebElement> list = driver.findElements(By.className("b-rflat-image"));
     Pattern pattern = Pattern.compile("jpg$");
-    /*for (WebElement el : list) {
-      WebElement l2 = el.findElement(By.tagName("img"));
-      String src = l2.getAttribute("src");
-      Matcher matcher = pattern.matcher(src);
-      Assert.assertTrue(matcher.find());
-    }*/
+    ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
+    List<WebElement> list = driver.findElements(By.className("b-rflat-image"));
+    WebElement lastElement = Iterables.getLast(list, driver.findElement(By.className("b-rflat-image")));
+    String tmp_el = list.get(49).findElement(By.tagName("img")).getAttribute("src");
 
-    for (int i=0; i<list.size(); i++){
+
+    WebDriverWait wait = new WebDriverWait(driver, 40);
+    WebElement last_visible = wait.until(ExpectedConditions
+            .visibilityOf(Iterables.getLast(list, driver.findElement(By.className("b-rflat-image")))));
+    for (int i=0; i<list.size(); i++) {
       String el = list.get(i).findElement(By.tagName("img")).getAttribute("src");
+      Matcher matcher = pattern.matcher(el);
       System.out.println("counter = "+i+"; element = "+el);
-      //Assert.assertTrue(pattern.matcher(el).find());
+      //Assert.assertTrue(matcher.find());
+      Assert.assertTrue(pattern.matcher(el).find());
     }
+//    for (int i=0; i<list.size(); i++) {
+//      if (i <= 4) {
+//        //WebElement l2 = el.findElement(By.tagName("img"));
+//        String el = list.get(i).findElement(By.tagName("img")).getAttribute("src");
+//        Matcher matcher = pattern.matcher(el);
+//        Assert.assertTrue(matcher.find());
+//      }
+//      else{
+//        String el = list.get(i).findElement(By.tagName("img")).getAttribute("src");
+//        Matcher matcher = pattern.matcher(el);
+//        Assert.assertTrue(matcher.find());
+//      }
+//    }
+
+//    for (int i=0; i<list.size(); i++){
+//      String el = list.get(i).findElement(By.tagName("img")).getAttribute("src");
+//      System.out.println("counter = "+i+"; element = "+el);
+//      //Assert.assertTrue(pattern.matcher(el).find());
+//    }
   }
 
   @After
