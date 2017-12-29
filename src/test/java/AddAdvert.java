@@ -7,7 +7,7 @@ import org.openqa.selenium.*;
 public class AddAdvert extends LoginBase {
   String login = "9172325235";
   String password = "12345";
-  By addNewAdd = By.xpath("//*[contains(@class,'Добавить объявление')]");
+  By addNewAdd = By.xpath("//div/a[contains(text(), 'Добавить объявление')]");
 
 
   @Test

@@ -7,7 +7,6 @@ import java.util.*;
 
 @RunWith(Parameterized.class)
 public class FailLogin extends LoginBase {
-  public WebDriver driver;
   private String login;
   private String password;
   private String expected_errormessage;
