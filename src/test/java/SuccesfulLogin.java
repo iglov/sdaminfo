@@ -18,7 +18,7 @@ public class SuccesfulLogin extends LoginBase {
   }
 
   @Ignore
-  @Test //Seccessful login
+  @Test //Seccessful LOGIN
   public void loginTest() {
     String login = "9172325235";
     String password = "12345";

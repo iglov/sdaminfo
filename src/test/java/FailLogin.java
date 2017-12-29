@@ -11,9 +11,6 @@ public class FailLogin extends LoginBase {
   private String password;
   private String expected_errormessage;
   private String warning_locator;
-  private static int counter;
-  private static int mainCounter;
-  private static int beforeCounter;
 
   public FailLogin(String login, String password, String expected_errormessage, String warning_locator) {
     this.login = login;
@@ -32,7 +29,7 @@ public class FailLogin extends LoginBase {
     return Arrays.asList(data);
   }
 
-  @Test  //Fail login parametrized
+  @Test  //Fail LOGIN parametrized
   public void failLoginTest() {
     preLoginPage();
     loginPage(login, password);
