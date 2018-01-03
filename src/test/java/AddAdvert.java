@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 @RunWith(Parameterized.class)
 public class
@@ -30,6 +31,7 @@ AddAdvert extends LoginBase {
     By peopleIncluded = By.id("Flat_people_included");
     By checkin_time = By.id("Flat_checkin_time");
     By checkout_time = By.id("Flat_checkout_time");
+    By checkboxlist = By.xpath("//div[@class='span7 offset2']");
     //By discountLink = By.xpath("//div/a[contains(text(), 'Добавить скидку')]");
 
     public AddAdvert(String typeaccomodation, String address, String people_number ) {
@@ -63,6 +65,10 @@ AddAdvert extends LoginBase {
         select1.selectByVisibleText(people_number);
         driver.findElement(checkin_time).sendKeys(checkin);
         driver.findElement(checkout_time).sendKeys(checkout);
+        List<WebElement> checkBoxList=driver.findElements(checkboxlist);
+        for(WebElement checkBox:checkBoxList) {
+            checkBox.click();
+        }
 
 
 
