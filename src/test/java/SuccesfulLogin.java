@@ -10,14 +10,14 @@ import static org.hamcrest.core.IsEqual.equalTo;
 @RunWith(JUnit4.class)
 public class SuccesfulLogin extends LoginBase {
 
-  @Ignore
+  //@Ignore
   @Test //Basic Auth
   public void preLoginTest() {
     preLoginPage();
     Assert.assertEquals("Квартиры посуточно в Казани без посредников. Снять квартиру на сутки недорого. Аренда на Sdaminfo.ru", driver.getTitle());
   }
 
-  @Ignore
+ // @Ignore
   @Test //Seccessful LOGIN
   public void loginTest() {
     String login = "9172325235";
@@ -27,7 +27,7 @@ public class SuccesfulLogin extends LoginBase {
     Assert.assertEquals("kazan",driver.getTitle());
   }
 
-  @Ignore
+  //@Ignore
   @Test // Count 50 items in page
   public void appartmentCountInPage() {
     preLoginPage();
