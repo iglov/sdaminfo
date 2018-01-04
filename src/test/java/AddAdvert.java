@@ -19,9 +19,12 @@ AddAdvert extends LoginBase {
     String price = "1000";
     String checkin = "13";
     String checkout = "12";
+    String flat_floor = "5";
+    String flat_floor_total = "12";
     private String typeaccomodation;
     private String address;
     private String people_number;
+    private String house_type;
 
 
     By addNewAdd = By.xpath("//div/a[contains(text(), 'Добавить объявление')]");
@@ -32,22 +35,27 @@ AddAdvert extends LoginBase {
     By checkin_time = By.id("Flat_checkin_time");
     By checkout_time = By.id("Flat_checkout_time");
     By checkboxlist = By.xpath("//div[@class='span7 offset2']");
-    //By discountLink = By.xpath("//div/a[contains(text(), 'Добавить скидку')]");
+    By flat_floor_link = By.id("Flat_floor");
+    By flat_floor_total_link = By.id("Flat_floors_total");
+    By button_click = By.xpath("//div[@class='btn-group js-toggle-buttons']");
+    By checkboxlist1 = By.xpath("//div[@class='span3 offset2' and @class='span3']");
 
-    public AddAdvert(String typeaccomodation, String address, String people_number ) {
+
+    public AddAdvert(String typeaccomodation, String address, String people_number, String house_type ) {
         this.typeaccomodation = typeaccomodation;
         this.address = address;
         this.people_number = people_number;
+        this.house_type = house_type;
     }
 
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         Object[][] data = new Object[][]{
-                {"квартира", "Киевская, 44", "1"},
-                {"коттедж", "Гвардейская, 52", "3"},
-                {"комната", "Кирпичная, 5", "5"},
-                {"хостел", "Достоевского, 81", "7"},
-                {"гостиница", "Подлужная, 67", "9"}
+                {"квартира", "Киевская, 44", "1", "кирпичный"},
+                {"коттедж", "Гвардейская, 52", "3", "монолитный"},
+                {"комната", "Кирпичная, 5", "5", "панельный"},
+                {"хостел", "Достоевского, 81", "7", "кирпичный"},
+                {"гостиница", "Подлужная, 67", "9", "монолитный"}
         };
         return Arrays.asList(data);
     }
@@ -69,8 +77,17 @@ AddAdvert extends LoginBase {
         for(WebElement checkBox:checkBoxList) {
             checkBox.click();
         }
-
-
+        driver.findElement(flat_floor_link).sendKeys(flat_floor);
+        driver.findElement(flat_floor_total_link).sendKeys(flat_floor_total);
+        String str1 = "[value=";
+        String str2 = house_type;
+        String str3 = "]";
+        String str = str1+str2+str3;
+        driver.findElement(button_click).findElement(By.cssSelector(str)).click();
+        List<WebElement> checkBoxList1=driver.findElements(checkboxlist1);
+        for(WebElement checkBox:checkBoxList1) {
+            checkBox.click();
+        }
 
 
         /*WebDriverWait wait = new WebDriverWait(driver, 10);
