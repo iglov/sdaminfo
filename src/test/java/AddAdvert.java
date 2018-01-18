@@ -11,8 +11,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @RunWith(Parameterized.class)
-public class
-AddAdvert extends LoginBase {
+public class AddAdvert extends LoginBase {
     String login = "9172325235";
     String password = "12345";
     String price = "1000";
@@ -21,6 +20,7 @@ AddAdvert extends LoginBase {
     private String typeaccomodation;
     private String address;
     private String people_number;
+    private String rooms_number;
 
 
     By addNewAdd = By.xpath("//div/a[contains(text(), 'Добавить объявление')]");
@@ -30,22 +30,26 @@ AddAdvert extends LoginBase {
     By peopleIncluded = By.id("Flat_people_included");
     By checkin_time = By.id("Flat_checkin_time");
     By checkout_time = By.id("Flat_checkout_time");
-    //By discountLink = By.xpath("//div/a[contains(text(), 'Добавить скидку')]");
+    By flat_rooms = By.xpath("//button[@class='btn button-silver' and @value='"+ rooms_number +"']");
+    //By flat_rooms = By.xpath("//button[@class='btn button-silver' and @value='2']");
+    By registration = By.id("submit_button");
 
-    public AddAdvert(String typeaccomodation, String address, String people_number ) {
+
+    public AddAdvert(String typeaccomodation, String address, String people_number, String rooms_number ) {
         this.typeaccomodation = typeaccomodation;
         this.address = address;
         this.people_number = people_number;
+        this.rooms_number = rooms_number;
     }
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "typeaccomodation= {0} address= {1} people_number= {2} rooms_number = {3}")
     public static Collection<Object[]> data() {
         Object[][] data = new Object[][]{
-                {"квартира", "Киевская, 44", "1"},
-                {"коттедж", "Гвардейская, 52", "3"},
-                {"комната", "Кирпичная, 5", "5"},
-                {"хостел", "Достоевского, 81", "7"},
-                {"гостиница", "Подлужная, 67", "9"}
+                {"квартира", "Киевская, 44", "1", "1"},
+                {"коттедж", "Гвардейская, 52", "3", "2"},
+                {"комната", "Кирпичная, 5", "5", "3"},
+                {"хостел", "Достоевского, 81", "7", "4"},
+                {"гостиница", "Подлужная, 67", "9", "1"}
         };
         return Arrays.asList(data);
     }
@@ -63,6 +67,8 @@ AddAdvert extends LoginBase {
         select1.selectByVisibleText(people_number);
         driver.findElement(checkin_time).sendKeys(checkin);
         driver.findElement(checkout_time).sendKeys(checkout);
+        driver.findElement(flat_rooms).click();
+        driver.findElement(registration).click();
 
 
 

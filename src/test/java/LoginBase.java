@@ -25,6 +25,7 @@ public class LoginBase {
             .elementToBeClickable(By.id("AuthService_username_top")));
     mylogin.clear();
     mylogin.sendKeys(login);
+
     WebElement mypassword = wait.until(ExpectedConditions
             .elementToBeClickable(By.id("AuthService_password")));
     mypassword.sendKeys(pass);
