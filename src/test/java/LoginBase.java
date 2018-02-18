@@ -13,7 +13,7 @@ public class LoginBase {
   public WebDriver driver;
 
   protected void preLoginPage() {
-    driver.get("https://10:10@hotelfm.ru/kazan/");
+    driver.get("http://10:10@hotelfm.ru/kazan/");
   }
 
   protected void loginPage(String login, String pass) {
