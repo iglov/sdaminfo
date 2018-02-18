@@ -34,7 +34,8 @@ public class LoginBase {
 
   @Before
   public void setUp() {
-    System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
+//    System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
+    System.setProperty("webdriver.chrome.driver", "/webdrivers/chromedriver");
     driver = new ChromeDriver();
     driver.manage().timeouts().implicitlyWait(10, TimeUnit.MILLISECONDS);
   }
