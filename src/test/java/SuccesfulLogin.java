@@ -28,11 +28,11 @@ public class SuccesfulLogin extends LoginBase {
   }
 
   //@Ignore
-  @Test // Count 50 items in page
+  @Test // Counts 36 items on page
   public void appartmentCountInPage() {
     preLoginPage();
     List<WebElement> list = driver.findElements(By.cssSelector(".b-rflat"));
-    Assert.assertThat(50, equalTo(list.size()));
+    Assert.assertThat(36, equalTo(list.size()));
   }
 
   @Ignore
